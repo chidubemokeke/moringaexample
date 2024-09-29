@@ -1,0 +1,26 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Punks
+    network: mainnet
+    source:
+      address: "0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB"
+      abi: Punks
+      startBlock: 3914495
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - PunkTransfer
+      abis:
+        - name: Punks
+          file: ./abis/Punks.json
+      eventHandlers:
+        - event: PunkTransfer(indexed address,indexed address,uint256)
+          handler: handlePunkTransfer
+      file: ./src/punks.ts
